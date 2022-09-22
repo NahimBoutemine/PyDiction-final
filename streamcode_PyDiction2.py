@@ -155,7 +155,7 @@ elif rad == "Exploration des données brutes":
   st.markdown("Avant la modélisation, une présélection de modèles à tester est classiquement faite en fonction de critères sur le jeu de données exploré, ainsi que des sources bibliographiques. Le traitement des données avant la modélisation peut se faire de différentes manières, soit obligatoirement : élimination ou remplacement des données manquantes et des doublons, encodage des catégorielles, éventuellement: normalisation, rééchantilonnage, réduction du nombre de variables. Afin de déterminer la méthode amenant à un jeu de qualité optimale et donc des performances optimales, une exploration thématique des données brutes est nécessaire.")
   
   #Nombre de données, et source :
-  st.subheader("Source des données et nombre pour aider la préselction des modèles de ML :")   
+  st.subheader("Source des données et nombre pour aider la préselection des modèles de ML :")   
   st.markdown("Le nombre de données est un critère pour la préselection de modèles et le choix du remplacement des manquantes. Les données sont présentes sur 49 stations australiennes, sur plusieurs années, et comprennent les informations journalières de : ensoleillement, humidité, vitesse et sens du vent, quantité de nuages, températures minimales et maximales etc.")
   st.write('Le nombre de lignes du jeu de données est :', 
            len(df_full), 
@@ -262,8 +262,6 @@ elif rad == "Pipeline de préparation des données":
   #Traitement des données manquantes et des doublons:
   st.subheader("Traitement des manquantes et des doublons :")
   st.markdown("Les données manquantes doivent être enlevées car elles empêchent le bon fonctionnement des algorithmes. La meilleure option a été dans notre cas de choisir d'enlever toutes les données manquantes en une fois puisque l'imputation statistique n'a pas amené de meilleures performances des modèles et il faut par principe conserver le jeu de données le plus léger.")
-  #st.markdown("Les valeurs manquantes sont ici enlevées car, même si en général elles sont remplacées par une autre valeur (imputation statistique), selon notre expérience dans ce cas de prédiction cela ne fait que rajouter du temps de calcul")
-  #st.markdown("A présent affichons ci-dessous le pourcentage de données manquantes par colonne : on peut voir qu'il n'y en a plus!")
   percent_missing_df = df.isnull().sum() * 100 / len(df)
   if st.checkbox("Cocher pour afficher le pourcentage de valeurs manquantes par colonnes :"):
     st.write(percent_missing_df)
@@ -329,39 +327,25 @@ elif rad == "Pipeline de préparation des données":
       sns.countplot(data = df_sm, x = 'RainTomorrow_encode')
       st.pyplot(fig)
       
- #if choice == 'OverSampling SMOTE':
-    #st.write('Vous avez sélectionné :', choice)
-    #smo = SMOTE()
-    #x_sm, y_sm = smo.fit_resample(x, y)
-    #affectation de x et y
-    #x = x_sm
-    #y = y_sm
   
   if st.checkbox("Cocher pour afficher notre conclusion quant au resampling :"):
     st.markdown("Un rééchantillonnage SMOTE a été retenu pour la préparation optimale de ce jeu puisque nous avons de meilleures performances avec. ")
   
   st.markdown("La question de la normalisation s'est aussi posée")
   choice2 = st.selectbox("Voici une visualisation montrant que la normalisation a bien un effet ici", ('Aucune normalisation','StandardScaler'))
-  #displaying the selected option
   st.write('Vous avez sélectionné :', choice2)
   
   if choice2 == 'Aucune normalisation':
-    #affectation de x et y
     
     df_minmaxtemp = df.iloc[:, 1:3]    
     fig = plt.figure(figsize=(3,3))
     sns.boxplot(data=df_minmaxtemp, color="red")
-    #ax1.set_title("températures min et max")
     st.pyplot(fig)  
   
   elif choice2 == 'StandardScaler':
     numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
     name_columns_numerics = x.select_dtypes(include=numerics).columns
-    
-    #créer, Entrainer et transformer directement les colonnes numériques de x
-    #scaler =  StandardScaler()
-    #x[name_columns_numerics] = scaler.fit_transform(x[name_columns_numerics])
-    
+        
     x_norm_minmaxtemp = x_norm.iloc[:, 1:3]
     
     fig = plt.figure(figsize=(3,3))
@@ -384,10 +368,10 @@ if rad == "Evaluation de la performance des modèles pré-sélectionnés":
   st.subheader("vous avez choisi de charger")
   st.subheader(model_choice)
 
-  model1 = KNeighborsClassifier(metric='manhattan', n_neighbors=26, weights='distance') #mettre ici le meilleur nbr_voisins trouvé plus haut
-  model2 = DecisionTreeClassifier(criterion = 'entropy', max_depth = 7, min_samples_leaf = 40, random_state = 123)
-  model3 = LogisticRegression(C=0.01, penalty= 'l2')
-  model4 = RandomForestClassifier(max_depth = 8, n_estimators = 200, criterion = 'gini', max_features = 'sqrt')
+  #knn = KNeighborsClassifier(metric='manhattan', n_neighbors=26, weights='distance') #mettre ici le meilleur nbr_voisins trouvé plus haut
+  #dtc = DecisionTreeClassifier(criterion = 'entropy', max_depth = 7, min_samples_leaf = 40, random_state = 123)
+  #lr = LogisticRegression(C=0.01, penalty= 'l2')
+  #rfc = RandomForestClassifier(max_depth = 8, n_estimators = 200, criterion = 'gini', max_features = 'sqrt')
   
   model = model1#initialisation du modèle (il faut un premier choix initial, changeable ensuite)
   filename1 = "KNNbest_pipeline_opti.joblib"
@@ -404,28 +388,15 @@ if rad == "Evaluation de la performance des modèles pré-sélectionnés":
   
   if model_choice == 'KNN optimisé':
     model = model1
-    #entrainement du meilleur modèle sur les jeux d'entrainement et de test issus du pipeline optimal
-    #model.fit(x_train, y_train)
   
   elif model_choice == 'DTC optimisé':
     model = model2
-    #entrainement du meilleur modèle sur les jeux d'entrainement et de test issus du pipeline optimal
-    #model.fit(x_train, y_train)
-  
+   
   elif model_choice == 'log reg optimisé':
     model = model3
-    #entrainement du meilleur modèle sur les jeux d'entrainement et de test issus du pipeline optimal
-    #model.fit(x_train, y_train)
-    
+   
   elif model_choice == 'RFC optimisé':
     model = model4
-    #entrainement du meilleur modèle sur les jeux d'entrainement et de test issus du pipeline optimal
-    #model.fit(x_train, y_train)
-    
-    #code précédent non fonctionnel (import torp lent du fichier joblib) : 
-    #import du modele entrainé sauvgdé plutôt que de le reentrainer (gain de temps sinon app lente)
-    #filename = "KNNbest_pipeline_opti.joblib"
-    #model = joblib.load(filename)
 
   st.markdown("Maintenant que l'entrainement du modele est chargé, étudions les indicateurs de performance du modèle sélectionné :")
   
@@ -443,9 +414,6 @@ if rad == "Evaluation de la performance des modèles pré-sélectionnés":
     f1score_train = f1_score(y_train, y_pred_train, average='macro')
     f1score_test = f1_score(y_test, y_pred_test, average='macro')
     st.write("F1score_train : ", f1score_train, "F1score_test : ", f1score_test)
-
-    #elif index_choice == 'matrice de confusion' :
-      #st.write(pd.crosstab(y_sm_test, y_pred_test, rownames=['Classe réelle'], colnames=['Classe prédite']))
 
   elif index_choice == 'AUC et ROC Curve' :
     st.markdown('Imprimons à présent la courbe ROC de ce modèle : ')
@@ -466,15 +434,13 @@ if rad == "Evaluation de la performance des modèles pré-sélectionnés":
     st.markdown("Le classement des vrais positifs est cependant moins bon que le classement des vrais négatifs")
     st.markdown('Les scores d accuracy (précision globale) et de f1-score (sensible à la précision de prédiction de chaque classe) sur les jeux d entrainement et de test sont :  ')
 
-  #elif index_choice == 'MAE' :
+  #elif index_choice == 'MAE' : La MAE a été désactivée car elle ne correspond pas dans ce problème de classification binaire. Elle est conservée pour trace. Elle n'est pas rentrée en compte dans le choix du modèle puisque introduite en deuxième temps.
   #  MAE = mae(y_test, y_pred_test)
   #  st.write("La 'Mean Absolute Error' ou 'MAE' est de : " + str(MAE), ', plus elle est basse plus le modèle est précis. Notre modèle a donc ici une précision correcte, ce paramètre d erreur est cohérent et confirme le score de précision. ')
 
   #résultats :
   st.markdown("Les prédictions sont plutôt bonnes !")
   
-  st.markdown("La MAE a été désactivée, car elle ne sert à rien dans le cadre de problèmes de classifications. On la laisse donc en tant que trace")
-
 if rad == "Conclusion et perspectives":
   
   st.subheader("Conclusion")
