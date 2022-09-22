@@ -164,7 +164,7 @@ elif rad == "Exploration des données brutes":
   #Les variables explicatives, définitions et types  :
   st.subheader("Types des variables explicatives pour évaluer la nécessité de l'encodage :")    
   st.write("Affichons le contenu des données brutes pour repérer le nom des variables explicatives et leur type : ")
-  st.dataframe(data=df_full)
+  st.write(df_full.head())
   st.markdown("Les variables sont numériques ou catégorielles, il faudra donc encoder les catégorielles par la suite.")
 
   #Repérage des doublons et des manquantes : 
