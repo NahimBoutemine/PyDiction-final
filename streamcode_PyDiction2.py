@@ -453,7 +453,7 @@ if rad == "Conclusion et perspectives":
     
   st.markdown("acc_train :  1.0, acc_test : 0.86.")
   st.markdown("F1score_train :  1.0 F1score_test : 0.86.")
-  st.markdown("Mean Absolute Error' ou 'MAE' : 0.13.")
+  #st.markdown("Mean Absolute Error' ou 'MAE' : 0.13.") coquille et non pris en compte dans le choix final mais laissé pour trace
   st.markdown("l'AUC est de : 0.87.")
 
   st.markdown("Les performances sont tout à fait acceptables, et nous permettent de répondre à la problématique")
