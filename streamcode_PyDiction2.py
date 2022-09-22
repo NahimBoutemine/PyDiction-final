@@ -270,7 +270,7 @@ elif rad == "Pipeline de préparation des données":
   #Affichage de l'encodage :
   st.subheader("Encodage des catégorielles :")
   st.markdown("Une fois les données manquantes traitées, les variables catégorielles doivent être encodées pour réaliser la sélection des variables.")
-  st.markdown("Les données ont été encodées par Label Encoder. L'encodage sous forme de données numériques doit etre vérifié.")
+  st.markdown("Les données ont été encodées par Label Encoder. L'encodage sous forme de données numériques doit être vérifié.")
   if st.checkbox("Cocher pour afficher le tableau des données encodées :"):
     st.write(df_encode.head())
   
@@ -373,7 +373,6 @@ if rad == "Evaluation de la performance des modèles pré-sélectionnés":
   #lr = LogisticRegression(C=0.01, penalty= 'l2')
   #rfc = RandomForestClassifier(max_depth = 8, n_estimators = 200, criterion = 'gini', max_features = 'sqrt')
   
-  #model = model1#initialisation du modèle (il faut un premier choix initial, changeable ensuite)
   #chargement des joblib : fonctionne en local, concernant l'application en ligne il semble que les joblib font dysfonctionner, en effet en local le code fonctionne et la mémoire de streamlit en ligne semble saturer en version gratuite lors de ces chargements.
   filename1 = "KNNbest_pipeline_opti.joblib"
   model1 = joblib.load(filename1)
@@ -399,7 +398,7 @@ if rad == "Evaluation de la performance des modèles pré-sélectionnés":
   elif model_choice == 'RFC optimisé':
     model = model4
 
-  st.markdown("Maintenant que l'entrainement du modele est chargé, étudions les indicateurs de performance du modèle sélectionné :")
+  st.markdown("Maintenant que l'entrainement du modèle est chargé, étudions les indicateurs de performance du modèle sélectionné :")
   
   ##Précision et f1-score : sur x_train (jeu entrainement issu de pipeline optimal) et x_test (jeu test issu du pipeline optimal)
   y_pred_train = model.predict(x_train)
