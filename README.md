@@ -3,7 +3,11 @@ PyDiction est un projet réalisé dans le cadre d'une formation pour la Data Sci
 
 Le but a été de prédire la variable RainTomorrow (la pluie demain) grâce à un modèle de Machine Learning à partir du lien kaggle https://www.kaggle.com/jsphyg/weather-dataset-rattle-package qui fournit un jeu de données météorologiques sur plusieurs stations australiennes.
 
-L'application permet de voir de manière intéractive les éléments clés du projet sur les étapes d'exploration des données, de construction du pipeline, d'évaluation des modèles préselectionnés et de conclusion.
+L'application streamlit est disponible sur le lien ci-dessous : 
+
+https://nahimboutemine-pydiction-final-streamcode-pydiction2-60j4t1.streamlitapp.com/ 
+
+elle  permet de voir de manière intéractive les éléments clés du projet sur les étapes d'exploration des données, de construction du pipeline, d'évaluation des modèles préselectionnés et de conclusion.
 
 Les autres informations utiles sont décrites dans l'application.
 
