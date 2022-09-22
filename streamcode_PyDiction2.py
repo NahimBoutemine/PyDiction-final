@@ -374,6 +374,7 @@ if rad == "Evaluation de la performance des modèles pré-sélectionnés":
   #rfc = RandomForestClassifier(max_depth = 8, n_estimators = 200, criterion = 'gini', max_features = 'sqrt')
   
   model = model1#initialisation du modèle (il faut un premier choix initial, changeable ensuite)
+  #chargement des joblib : fonctionne en local, concernant l'application en ligne il semble que les joblib font "planter", en effet en local le code fonctionne et la mémoire de streamlit en ligne semble saturer en version gratuite.
   filename1 = "KNNbest_pipeline_opti.joblib"
   model1 = joblib.load(filename1)
 
