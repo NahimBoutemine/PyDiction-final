@@ -272,7 +272,7 @@ elif rad == "Pipeline de préparation des données":
   st.markdown("Une fois les données manquantes traitées, les variables catégorielles doivent être encodées pour réaliser la sélection des variables.")
   st.markdown("Les données ont été encodées par Label Encoder. L'encodage sous forme de données numériques doit etre vérifié.")
   if st.checkbox("Cocher pour afficher le tableau des données encodées :"):
-    st.write(df_encode)
+    st.write(df_encode.head())
   
   #Sélection des variables par le test de Pearson :
   st.subheader("Sélection des variables, test de Pearson :")
