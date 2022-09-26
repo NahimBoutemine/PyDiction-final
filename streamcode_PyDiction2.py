@@ -205,7 +205,7 @@ elif rad == "Exploration des données brutes":
     sns.boxplot(data=df_minmaxtemp, color="red", ax=ax1)
     sns.boxplot(data=df_wind, color="green", ax=ax2 )
     ax1.set_title("températures min et max")
-    ax2.set_title("vitesse du vent (9 pm et 3 am)")
+    ax2.set_title("vitesse du vent (9 am et 3 pm)")
     fig.set_tight_layout(True)
     st.pyplot(fig)  
   if choice == 'couverture nuageuse (matin et après midi) et températures (matin et après midi)':
